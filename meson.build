@@ -215,6 +215,11 @@ else
   add_project_arguments(['-DUSE_SYS_CAPSTONE'], language: 'c')
 endif
 
+has_capstone_hppa = cc.has_header_symbol('capstone/capstone.h', 'CS_ARCH_HPPA',
+  dependencies: capstone_check_deps,
+  include_directories: capstone_check_includes,
+)
+
 has_capstone_m68k_cpu32 = cc.compiles('''
 #include <capstone/capstone.h>
 int main(void) {
