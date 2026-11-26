@@ -33,6 +33,7 @@ static cpu_type_t xnu_get_cpu_type(pid_t pid);
 
 RZ_IPI bool rz_xnu_debug_init(RzDebug *dbg, void **user) {
 	RzXnuDebug *ctx = RZ_NEW0(RzXnuDebug);
+	RZ_LOG_ERROR("DBG init ctx=%p\n", (void *)ctx);
 	if (!ctx) {
 		return false;
 	}
@@ -166,6 +167,7 @@ int xnu_attach(RzDebug *dbg, int pid) {
 	if (!ctx->cpu) {
 		RZ_LOG_ERROR("xnu_attach failed to determine cpu type of pid %d\n", pid);
 	}
+	RZ_LOG_ERROR("DBG attach ctx=%p pid=%d cpu=0x%x\n", (void *)ctx, pid, ctx->cpu);
 
 	// First start listening to exceptions, which will also deliver signals to us
 	if (!xnu_create_exception_thread(dbg)) {

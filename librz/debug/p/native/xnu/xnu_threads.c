@@ -209,6 +209,8 @@ RZ_IPI bool rz_xnu_thread_get_gpr(RzXnuDebug *ctx, xnu_thread_t *thread) {
 	thread->count = x86_THREAD_STATE_COUNT;
 	thread->state_size = (ctx->cpu == CPU_TYPE_X86_64) ? sizeof(x86_thread_state64_t) : sizeof(x86_thread_state32_t);
 #endif
+	RZ_LOG_ERROR("DBG get_gpr ctx=%p cpu=0x%x flavor=%d count=%u port=%u\n",
+		(void *)ctx, ctx->cpu, thread->flavor, thread->count, thread->port);
 	rc = thread_get_state(thread->port, thread->flavor,
 		(thread_state_t)regs, &thread->count);
 	if (rc != KERN_SUCCESS) {
